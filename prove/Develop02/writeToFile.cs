@@ -1,5 +1,8 @@
 using System;
 
+// this class will handle writing to a file and reading from a file
+// it can write a new entry to a new file or append to an existing file
+// it can also read the contents of a file and return it back to main to be displayed
 class WriteOrReadToFile
 {
     private string _entry;

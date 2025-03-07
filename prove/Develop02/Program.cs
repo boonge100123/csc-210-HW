@@ -2,8 +2,13 @@ using System;
 
 class Program
 {
+    // this is the main funtion that will run the program
+    // it will display the menu and call the appropriate functions based on the user's selection
     static void Main()
     {
+
+        // this function will write the user's entry to the file
+        // i made it in its own funtion because i was calling it multiple times and it made the code nicer
         void WriteInfoToFile(string journalName)
         {
             NewPrompt promptGenerator = new NewPrompt();
@@ -18,7 +23,7 @@ class Program
             entryWriter.WriteToFile();
         }
 
-
+        // this is the main menu loop that will run until the user chooses to exit
         bool exit = false;
         while (exit != true)
         {

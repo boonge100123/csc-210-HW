@@ -1,5 +1,6 @@
 using System;
-
+// this class will hold the list of prompts and will have a method to get a random prompt from the list
+// it is what will handall chosing a random prompt for the user to write about
 class NewPrompt
 {
     private List<string> _promptList;
