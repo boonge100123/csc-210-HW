@@ -2,8 +2,17 @@ using System;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        Console.WriteLine("Hello Develop02 World!");
+        NewPrompt promptGenerator = new NewPrompt();
+        string randomPrompt = promptGenerator.GetRandomPrompt();
+        Console.WriteLine("Your prompt: " + randomPrompt);
+        Console.WriteLine("Please enter your journal entry: ");
+        string userEntry = Console.ReadLine();
+
+        UserEntryClass journalEntry = new UserEntryClass(randomPrompt, userEntry);
+
+        Console.WriteLine("\nYour journal entry:");
+        Console.WriteLine(journalEntry.makeUserEntry());
     }
 }
