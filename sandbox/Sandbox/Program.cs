@@ -12,7 +12,7 @@ class Program
         Console.WriteLine($"Circumference: {myCircle.GetCircumference()}");
         Console.WriteLine($"Diameter: {myCircle.GetDiameter()}");
 
-    Cyilnder myCyilnder = new Cyilnder(10, myCircle);
+    Cylinder myCyilnder = new Cylinder(10, myCircle);
     double volume = myCyilnder.GetVolume();
     Console.WriteLine($"The cyilnder volue is: {volume}");
     }
