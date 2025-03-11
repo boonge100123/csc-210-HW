@@ -1,18 +1,23 @@
 using System;
 using System.Collections.Generic;
 
-public class Resume
+class Resume
 {
-    public string _name;
-    public List<Job> _jobs = new List<Job>();
+    private string _name;
+    private List<Job> _jobs = new List<Job>();
 
-    public void Display()
+    public Resume(string name, List<Job> jobs)
     {
-        Console.WriteLine($"Name: {_name}");
-        Console.WriteLine("Jobs:");
+        _name = name;
+        _jobs = jobs;
+    }
+
+public void DisplayResume()
+    {
+        Console.WriteLine($"Resume for {_name}");
         foreach (Job job in _jobs)
         {
-            job.Display();
+            job.DisplayJob();
         }
     }
 }
