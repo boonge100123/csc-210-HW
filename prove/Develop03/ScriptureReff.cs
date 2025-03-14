@@ -20,4 +20,16 @@ class ScriptureReference
         _startVerse = verse;
         _endVerse = verse;
     }
+
+    public string GetReference()
+    {
+        if (_startVerse == _endVerse)
+        {
+            return $"{_book} {_chapter}:{_startVerse}";
+        }
+        else
+        {
+            return $"{_book} {_chapter}:{_startVerse}-{_endVerse}";
+        }
+    }
 }
