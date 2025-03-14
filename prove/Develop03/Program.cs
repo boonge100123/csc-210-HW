@@ -1,20 +1,57 @@
 using System;
+using System.Diagnostics;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Scripture scripture1 = new Scripture("John", 3, 16, "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.");
-        Scripture scripture2 = new Scripture("Genesis", 1, 1, "In the beginning God created the heaven and the earth.");
-        Scripture scripture3 = new Scripture("Psalm", 23, 1, "The LORD is my shepherd; I shall not want.");
+        while (true)
+        {
+            Console.WriteLine("Welcome to the Scripture memorization program!");
+            Console.WriteLine("Please enter one of the following options to proceed:");
+            Console.WriteLine(" 1. Veiw List of scripture Masteries available");
+            Console.WriteLine(" 2. Enter your own scripture reference");
+            Console.WriteLine(" 3. Procied to the memorization tool");
+            Console.WriteLine(" 4. Exit");
 
-        Console.WriteLine(scripture1.GetReference());
-        Console.WriteLine(scripture1.GetText());
+            string choice = Console.ReadLine();
+            
+            switch (choice)
+            {
+                case "1":
+                    break;
 
-        Console.WriteLine(scripture2.GetReference());
-        Console.WriteLine(scripture2.GetText());
+                case "2":
+                    Console.WriteLine("Please enter the Book of scripture:");
+                    string book = Console.ReadLine();
+                    Console.WriteLine("Please enter the chapter:");
+                    int chapter = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Please enter the starting verse:");
+                    int startVerse = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Please enter the ending verse:");
+                    int endVerse = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Please enter the text of the scripture:");
+                    string text = Console.ReadLine();
 
-        Console.WriteLine(scripture3.GetReference());
-        Console.WriteLine(scripture3.GetText());
+                    Scripture scripture = new Scripture(book, chapter, startVerse, endVerse, text);
+                    Console.WriteLine($"You entered: {scripture.GetReference()}: {scripture.GetText()}");
+                    
+                    break;
+
+                case "3":
+                    break;
+
+                case "4":
+                    Console.WriteLine("Thank you for using the Scripture memorization program. Goodbye!");
+                    return;
+
+                default:
+                    Console.WriteLine("Invalid choice. Please enter a valid option.");
+                    break;
+    }
+}
+
+        // string maskedText = remover.RemoveWordsFromText();
+        // Console.WriteLine($"{scripture.GetReference()}: {maskedText}");
     }
 }
