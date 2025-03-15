@@ -1,35 +1,48 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 class RemoveWords
 {
     private int _NumberToRemove;
-    private Scripture _scripture;
     private Random _random = new Random();
 
-    public RemoveWords(Scripture scripture, int numberToRemove)
+    public RemoveWords(int numberToRemove)
     {
-        _NumberToRemove = numberToRemove;
-        _scripture = scripture;
+        _NumberToRemove = Math.Max(0, numberToRemove); // Ensure non-negative
     }
 
-    public string RemoveWordsFromText()
+    public string RemoveWordsFromText(string currentText)
     {
-        string text = _scripture.GetText();
-        string[] words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] words = currentText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-        if (_NumberToRemove > words.Length)
+        // Find indices of visible words (words not completely replaced by underscores)
+        List<int> visibleWordIndices = new List<int>();
+        for (int i = 0; i < words.Length; i++)
         {
-            _NumberToRemove = words.Length;
+            if (!words[i].All(c => c == '_')) // If the word is not already hidden
+            {
+                visibleWordIndices.Add(i);
+            }
         }
 
-        HashSet<int> selectedIndices = new HashSet<int>();
-        while (selectedIndices.Count < _NumberToRemove)
+        if (visibleWordIndices.Count == 0)
         {
-            selectedIndices.Add(_random.Next(words.Length));
+            return currentText; // No more words to remove
         }
 
-        foreach (int index in selectedIndices)
+        int wordsToHide = Math.Min(_NumberToRemove, visibleWordIndices.Count);
+
+        // Shuffle indices and take the first `wordsToHide` elements
+        for (int i = visibleWordIndices.Count - 1; i > 0; i--)
         {
+            int j = _random.Next(i + 1);
+            (visibleWordIndices[i], visibleWordIndices[j]) = (visibleWordIndices[j], visibleWordIndices[i]);
+        }
+
+        for (int i = 0; i < wordsToHide; i++)
+        {
+            int index = visibleWordIndices[i];
             words[index] = new string('_', words[index].Length);
         }
 
