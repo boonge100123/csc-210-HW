@@ -1,8 +1,8 @@
 class PoliceMan : Person
 {
-    private String _weapon;
+    private string _weapon;
 
-    public PoliceMan(string firstName, string lastName, int age, string weapon) : base(firstName, lastName, age)
+    public PoliceMan(string firstName, string lastName, int age, string weapon) : base (firstName, lastName, age)
     {
         _weapon = weapon;
     }
