@@ -1,19 +1,30 @@
 using System;
 class Program
 {
+static void runspiner()
+{
+    int counter = 0;
+    while (counter < 10)
+    {
+        Console.Write(".");
+        Thread.Sleep(1000);
+        Console.Write(".");
+        Thread.Sleep(1000);
+        Console.Write(".");
+        Thread.Sleep(1000);
+        Console.Write("\b\b\b");
+        Console.Write("   ");
+        Console.Write("\b\b\b");
+        Thread.Sleep(1000);
+
+        counter++;
+    }
+}
+
+
     static void Main(string[] args)
     {
-        // Create a Circle object
-        Circle myCircle = new Circle(10);
-
-        // Display the properties and methods of the Circle object
-        Console.WriteLine($"Radius: {myCircle.Radius}");
-        Console.WriteLine($"Area: {myCircle.GetArea()}");
-        Console.WriteLine($"Circumference: {myCircle.GetCircumference()}");
-        Console.WriteLine($"Diameter: {myCircle.GetDiameter()}");
-
-    Cylinder myCyilnder = new Cylinder(10, myCircle);
-    double volume = myCyilnder.GetVolume();
-    Console.WriteLine($"The cyilnder volue is: {volume}");
+        Console.WriteLine("Hello World!");
+        runspiner();
     }
 }
