@@ -47,4 +47,26 @@ class Menu
             counter++;
         }
     }
+
+    public void SecondLoadingAnimation()
+    {
+        Console.Write("Loading      ");
+        int counter = 0;
+        while (counter < 10)
+        {
+            Thread.Sleep(1000);
+            Console.Write("|");
+            Thread.Sleep(1000);
+            Console.Write("\b");
+            Console.Write("/");Console.Write("/");
+            Thread.Sleep(1000);
+            Console.Write("\b");
+            Console.Write("-");
+            Thread.Sleep(1000);
+            Console.Write("\b");
+            Console.Write("\\");
+            Thread.Sleep(1000);
+            Console.Write("\b");
+        }
+    }
 }

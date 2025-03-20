@@ -6,6 +6,7 @@ class Program
     {
         Console.WriteLine("Hello Develop04 World!");
         Menu menu = new Menu();
-        menu.FirstLoadingAnimation();
+        // menu.FirstLoadingAnimation();
+        menu.SecondLoadingAnimation();
     }
 }
