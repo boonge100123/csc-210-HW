@@ -17,12 +17,12 @@ class BreathingActivity : UserInput
             Console.Write("Breathing in...");
             menu.CountDownAnimation(breathInTime);
             Console.WriteLine();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
 
             Console.Write("Now breath out...");
             menu.CountDownAnimation(breathOutTime);
             Console.WriteLine();
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
         }
     }
 }

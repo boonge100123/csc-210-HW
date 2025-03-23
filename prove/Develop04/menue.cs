@@ -31,7 +31,7 @@ class Menu
 
     public void FirstLoadingAnimation(int durationInSeconds)
     {
-        Console.Write("Loading");
+        Console.Write("pondering ");
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
     
@@ -43,7 +43,7 @@ class Menu
                 Console.Write(".");
             }
             Thread.Sleep(300);
-            Console.Write("\b\b\b   \b\b\b"); // clear the dots
+            Console.Write("\b\b\b   \b\b\b");
         }
     
         stopwatch.Stop();
@@ -62,9 +62,9 @@ class Menu
     while (stopwatch.Elapsed.TotalSeconds < durationInSeconds)
     {
         Console.Write(spinnerChars[index]);
-        Thread.Sleep(200); // Adjust speed here
-        Console.Write("\b"); // Go back one character
-        index = (index + 1) % spinnerChars.Length; // Loop back around
+        Thread.Sleep(200);
+        Console.Write("\b");
+        index = (index + 1) % spinnerChars.Length;
     }
 
     stopwatch.Stop();

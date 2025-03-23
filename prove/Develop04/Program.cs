@@ -9,7 +9,9 @@ class Program
         // menu.FirstLoadingAnimation(10);
         // menu.SecondLoadingAnimation();
         // menu.CountDownAnimation();
-        BreathingActivity breathingActivity = new BreathingActivity();
-        breathingActivity.Run();
+        // BreathingActivity breathingActivity = new BreathingActivity();
+        // breathingActivity.Run();
+        ReflectionActivity reflectionActivity = new ReflectionActivity();
+        reflectionActivity.Run();
     }
 }

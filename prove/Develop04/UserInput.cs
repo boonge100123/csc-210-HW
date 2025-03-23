@@ -24,6 +24,7 @@ class UserInput
         }
         Console.Write("\nGet ready to begin...");
         menu.CountDownAnimation(5);
+        Console.WriteLine("\n\n");
 
         
     }
