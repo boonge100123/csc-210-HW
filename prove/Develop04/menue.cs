@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 class Menu
 {
@@ -6,9 +7,9 @@ class Menu
     private DateTime _date;
     private string _displayObject;
 
-    public Menu(int time)
+    public Menu()
     {
-        _time = time;
+        _time = 0;
         _date = DateTime.Now;
         _displayObject = "";
     }
@@ -28,59 +29,55 @@ class Menu
         Console.WriteLine("Thank you for using the Mindfulness Program.");
     }
 
-    public void FirstLoadingAnimation()
-{
-    Console.Write("Loading");
-    int counter = 0;
-    while (counter < 10)
+    public void FirstLoadingAnimation(int durationInSeconds)
     {
-        for (int i = 0; i < 3; i++)
+        Console.Write("Loading");
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+    
+        while (stopwatch.Elapsed.TotalSeconds < durationInSeconds)
         {
-            Thread.Sleep(300); // slower, smoother timing
-            Console.Write(".");
+            for (int i = 0; i < 3 && stopwatch.Elapsed.TotalSeconds < durationInSeconds; i++)
+            {
+                Thread.Sleep(300);
+                Console.Write(".");
+            }
+            Thread.Sleep(300);
+            Console.Write("\b\b\b   \b\b\b"); // clear the dots
         }
-        Thread.Sleep(300);
-        // Clear the dots by overwriting with spaces and returning the cursor
-        Console.Write("\b\b\b   \b\b\b");
-        counter++;
+    
+        stopwatch.Stop();
+        Console.WriteLine("\nLoading complete!");
     }
+
+
+    public void SecondLoadingAnimation(int durationInSeconds)
+{
+    Console.Write("Loading ");
+    char[] spinnerChars = { '|', '/', '-', '\\' };
+    var stopwatch = new Stopwatch();
+    stopwatch.Start();
+
+    int index = 0;
+    while (stopwatch.Elapsed.TotalSeconds < durationInSeconds)
+    {
+        Console.Write(spinnerChars[index]);
+        Thread.Sleep(200); // Adjust speed here
+        Console.Write("\b"); // Go back one character
+        index = (index + 1) % spinnerChars.Length; // Loop back around
+    }
+
+    stopwatch.Stop();
     Console.WriteLine("\nLoading complete!");
 }
 
-
-    public void SecondLoadingAnimation()
+    public void CountDownAnimation(int durationInSeconds)
     {
-        Console.Write("Loading      ");
-        int counter = 0;
-        while (counter < 10)
+        for (int i = durationInSeconds; i > 0; i--)
         {
+            Console.Write($"{i} ");  // Print the number on the same line
             Thread.Sleep(1000);
-            Console.Write("|");
-            Thread.Sleep(1000);
-            Console.Write("\b");
-            Console.Write("/");
-            Thread.Sleep(1000);
-            Console.Write("\b");
-            Console.Write("-");
-            Thread.Sleep(1000);
-            Console.Write("\b");
-            Console.Write("\\");
-            Thread.Sleep(1000);
-            Console.Write("\b");
+            Console.Write("\b\b"); // Move the cursor back to overwrite the number
         }
     }
-
-    public void CountDownAnimation()
-{
-    Console.Write("Loading ");
-    int counter = 10;
-    while (counter > 0)
-    {
-        Console.Write($"{counter}  ");
-        Thread.Sleep(1000);
-        Console.Write("\rLoading ");
-        counter--;
-    }
-    Console.WriteLine("\rLoading complete!");
-}
 }

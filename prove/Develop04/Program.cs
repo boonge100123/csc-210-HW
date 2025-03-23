@@ -4,10 +4,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop04 World!");
-        Menu menu = new Menu(0);
-        menu.FirstLoadingAnimation();
+        // Console.WriteLine("Hello Develop04 World!");
+        // Menu menu = new Menu();
+        // menu.FirstLoadingAnimation(10);
         // menu.SecondLoadingAnimation();
         // menu.CountDownAnimation();
+        BreathingActivity breathingActivity = new BreathingActivity();
+        breathingActivity.Run();
     }
 }
