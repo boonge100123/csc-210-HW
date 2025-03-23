@@ -4,14 +4,47 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Console.WriteLine("Hello Develop04 World!");
-        // Menu menu = new Menu();
-        // menu.FirstLoadingAnimation(10);
-        // menu.SecondLoadingAnimation();
-        // menu.CountDownAnimation();
-        // BreathingActivity breathingActivity = new BreathingActivity();
-        // breathingActivity.Run();
-        ReflectionActivity reflectionActivity = new ReflectionActivity();
-        reflectionActivity.Run();
+
+        while (true)
+        {
+            Console.Clear();
+            Menu menu = new Menu();
+            menu.DisplayMenue();
+            Console.WriteLine("Please select an option (1-4):");
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+            case 1:
+                Console.Clear();
+                BreathingActivity breathingActivity = new BreathingActivity();
+                breathingActivity.Run();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                break;
+            case 2:
+                Console.Clear();
+                ReflectionActivity reflectionActivity = new ReflectionActivity();
+                reflectionActivity.Run();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                break;
+            case 3:
+                Console.Clear();
+                ListingActivity listingActivity = new ListingActivity();
+                listingActivity.Run();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                break;
+            case 4:
+                menu.DisplayEndMessage();
+                return;
+            default:
+                Console.WriteLine("Invalid choice. Please select a valid option.");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                break;
+            }
+        }
     }
 }

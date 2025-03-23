@@ -26,12 +26,14 @@ class ReflectionActivity : UserInput
     };
 
     private Random _random = new Random();
+    private string _ActivityName = "Reflection Activity";
+    private string _ActivityDescription = "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the areas in your life where you are strong and how you can use those strengths to overcome challenges.";
 
 
     public void Run()
     {
         Menu menu = new Menu();
-        DisplayStartMessage("Reflection Activity", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the areas in your life where you are strong and how you can use those strengths to overcome challenges.");
+        DisplayStartMessage(_ActivityName, _ActivityDescription);
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
@@ -47,5 +49,7 @@ class ReflectionActivity : UserInput
             menu.FirstLoadingAnimation(30);
             Console.WriteLine("\n \n");
         }
+        stopwatch.Stop();
+        DisplayEndMessage(_ActivityName);
     }
 }

@@ -3,17 +3,6 @@ using System.Diagnostics;
 
 class Menu
 {
-    private int _time;
-    private DateTime _date;
-    private string _displayObject;
-
-    public Menu()
-    {
-        _time = 0;
-        _date = DateTime.Now;
-        _displayObject = "";
-    }
-
     public void DisplayMenue()
     {
         Console.WriteLine("welcome to the Mindfulness Program.");
@@ -47,9 +36,7 @@ class Menu
         }
     
         stopwatch.Stop();
-        Console.WriteLine("\nLoading complete!");
     }
-
 
     public void SecondLoadingAnimation(int durationInSeconds)
 {
