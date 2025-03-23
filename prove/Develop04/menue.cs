@@ -6,9 +6,9 @@ class Menu
     private DateTime _date;
     private string _displayObject;
 
-    public Menu()
+    public Menu(int time)
     {
-        _time = 0;
+        _time = time;
         _date = DateTime.Now;
         _displayObject = "";
     }
@@ -29,24 +29,24 @@ class Menu
     }
 
     public void FirstLoadingAnimation()
+{
+    Console.Write("Loading");
+    int counter = 0;
+    while (counter < 10)
     {
-        Console.Write("Loading");
-        int counter = 0;
-        while (counter < 10)
+        for (int i = 0; i < 3; i++)
         {
-            Thread.Sleep(1000);
-            Console.Write(".    ");
-            Thread.Sleep(1000);
-            Console.Write(".    ");
-            Thread.Sleep(1000);
+            Thread.Sleep(300); // slower, smoother timing
             Console.Write(".");
-            Thread.Sleep(1000);
-            Console.Write("\b\b\b\b\b\b\b\b\b\b\b");
-            Console.Write("           ");
-            Console.Write("\b\b\b\b\b\b\b\b\b\b\b");
-            counter++;
         }
+        Thread.Sleep(300);
+        // Clear the dots by overwriting with spaces and returning the cursor
+        Console.Write("\b\b\b   \b\b\b");
+        counter++;
     }
+    Console.WriteLine("\nLoading complete!");
+}
+
 
     public void SecondLoadingAnimation()
     {
@@ -58,7 +58,7 @@ class Menu
             Console.Write("|");
             Thread.Sleep(1000);
             Console.Write("\b");
-            Console.Write("/");Console.Write("/");
+            Console.Write("/");
             Thread.Sleep(1000);
             Console.Write("\b");
             Console.Write("-");
@@ -69,4 +69,18 @@ class Menu
             Console.Write("\b");
         }
     }
+
+    public void CountDownAnimation()
+{
+    Console.Write("Loading ");
+    int counter = 10;
+    while (counter > 0)
+    {
+        Console.Write($"{counter}  ");
+        Thread.Sleep(1000);
+        Console.Write("\rLoading ");
+        counter--;
+    }
+    Console.WriteLine("\rLoading complete!");
+}
 }
