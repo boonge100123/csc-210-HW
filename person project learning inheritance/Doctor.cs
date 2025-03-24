@@ -11,8 +11,18 @@ class Doctor : Person
         _hospital = hospital;
     }
 
-    public string DisplayPersonInfoWithSpecialization()
+    public string GetPersonInfoWithSpecialization()
     {
-        return $"information {_specialization}, Info: {DisplayPersonInfo()}";
+        return $"information {_specialization}, Info: {GetPersonInfo()}";
+    }
+
+    public override string GetName()
+    {
+        return "Dr. " + base.GetName();
+    }
+
+    public override string GetHobbies()
+    {
+        return "I like to play golf";
     }
 }

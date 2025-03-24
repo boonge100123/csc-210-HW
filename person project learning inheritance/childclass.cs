@@ -7,8 +7,18 @@ class PoliceMan : Person
         _weapon = weapon;
     }
 
-    public string DisplayPersonInfoWithItem()
+    public string GetPoliceManInfo()
     {
-        return $"information {_weapon}, Info: {DisplayPersonInfo()}";
+        return $"information {_weapon}, Info: {GetPersonInfo()}";
+    }
+
+    public override string GetName()
+    {
+        return "Officer " + base.GetName();
+    }
+
+    public override string GetHobbies()
+    {
+        return "I like to play basketball";
     }
 }
