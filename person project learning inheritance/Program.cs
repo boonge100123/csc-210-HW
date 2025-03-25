@@ -18,12 +18,22 @@ class Program
         // Console.WriteLine(doctor1.GetHeight());
 
         PoliceMan policeMan2 = new PoliceMan("John", "Doe", 25, "Gun");
-        Console.WriteLine(policeMan2.GetName());
-        Console.WriteLine(policeMan2.GetHobbies());
+        // Console.WriteLine(policeMan2.GetName());
+        // Console.WriteLine(policeMan2.GetHobbies());
 
         Doctor doctor2 = new Doctor("Jane", "Doe", 30, "Cardiologist", "General Hospital");
-        Console.WriteLine(doctor2.GetName());
-        Console.WriteLine(doctor2.GetHobbies());
+        // Console.WriteLine(doctor2.GetName());
+        // Console.WriteLine(doctor2.GetHobbies());
 
+        List<Person> myPeople = new List<Person>();
+        myPeople.Add(policeMan2);
+        myPeople.Add(doctor2);
+
+
+        foreach(Person person in myPeople)
+        {
+            Console.WriteLine(person.GetName());
+            Console.WriteLine(person.GetHobbies());
+        }
     }
 }
