@@ -1,0 +1,1 @@
+The program works as intended, it should be able to withstand a person, meaning I have added try accept stuff to all of the menus people interact with to prevent the miss input of others. I also added some additional animations to the program.
