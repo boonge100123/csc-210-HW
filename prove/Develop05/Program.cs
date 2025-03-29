@@ -14,7 +14,6 @@ class Program
         {
             Console.Clear();
             menu.DisplayMenue();
-            Console.WriteLine("Please select an option (1 - 6):");
             int choice = int.Parse(Console.ReadLine());
 
             switch (choice)
@@ -33,9 +32,28 @@ class Program
                     break;
                 case 3:
                     Console.Clear();
-                    Console.WriteLine("Adding goal...");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
+                    menu.DisplayGoalTypes();
+                    int GoleTypeChoice = int.Parse(Console.ReadLine());
+                    switch (GoleTypeChoice)
+                    {
+                        case 1:
+                            menu.DesplayAndSaveSimpleGoal();
+                            break;
+                        case 2:
+                            Console.WriteLine("Creating an Eternal Goal...");
+                            // Here you would implement the logic to create an Eternal Goal
+                            break;
+                        case 3:
+                            Console.WriteLine("Creating a Checklist Goal...");
+                            // Here you would implement the logic to create a Checklist Goal
+                            break;
+                        case 4:
+                            Console.WriteLine("Returning to Main Menu...");
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice. Please select a valid goal type.");
+                            break;
+                    }
                     break;
                 case 4:
                     Console.Clear();
@@ -59,5 +77,16 @@ class Program
                     break;
             }
         }
+
+        // SimpleGole goal = new SimpleGole("Run a Marathon", "Complete a full marathon", 1000);
+        // Console.WriteLine("Before completing:");
+        // Console.WriteLine(goal.ToString());
+        // int pointsEarned = goal.RecordPoints();
+        // Console.WriteLine("\nAfter completing:");
+        // Console.WriteLine(goal.ToString());
+        // Console.WriteLine($"\nPoints earned: {pointsEarned}");
+        // int extraPoints = goal.RecordPoints();
+        // Console.WriteLine($"\nTrying to complete again...");
+        // Console.WriteLine($"Extra points earned: {extraPoints}");
     }
 }
