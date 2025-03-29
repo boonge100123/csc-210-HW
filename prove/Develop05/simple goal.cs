@@ -1,20 +1,17 @@
 using System;
 
-class SimpleGole : Goal
+class SimpleGoal : Goal
 {
-    public SimpleGole(string name, string description, int points) : base(name, description, points)
-    {
-    }
+    public SimpleGoal(string name, string description, int points)
+        : base(name, description, points) { }
 
     public override int RecordPoints()
     {
-        if(!_IsComplete)
+        if (!_IsComplete)
         {
             _IsComplete = true;
             return _points;
         }
         return 0;
     }
-
-    
 }

@@ -1,92 +1,71 @@
 using System;
-using System.Diagnostics;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Menu menu = new Menu();
-        menu.DisplayStartMessage();
-        Console.WriteLine("Press any key to continue...");
-        Console.ReadKey();
+        string filePath = "goals.csv";
+        FileHandler fileHandler = new FileHandler(filePath);
+        Menu menu = new Menu(fileHandler);
 
-        while (true)
+        menu.DisplayStartMessage();
+
+        bool exit = false;
+        while (!exit)
         {
             Console.Clear();
-            menu.DisplayMenue();
-            int choice = int.Parse(Console.ReadLine());
+            Console.WriteLine($"Score: {fileHandler.GetScore()}");
+            Console.WriteLine("1. Load/Create Goals\n2. List Goals\n3. Add Goal\n4. Record Event\n5. Save\n6. Remove Goal\n7. Exit");
 
-            switch (choice)
+            switch (Console.ReadLine())
             {
-                case 1:
-                    Console.Clear();
-                    Console.WriteLine("Loading goals...");
+                case "1":
+                    Console.Write("File name (without extension): ");
+                    filePath = Console.ReadLine() + ".csv";
+                    fileHandler.SetFilePath(filePath);
+                    Console.WriteLine("1. Load\n2. New");
+                    if (Console.ReadLine() == "1") fileHandler.LoadGoals();
+                    break;
+                case "2":
+                    fileHandler.ListGoals();
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
                     break;
-                case 2:
-                    Console.Clear();
-                    Console.WriteLine("Listing goals...");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
-                    break;
-                case 3:
-                    Console.Clear();
+                case "3":
                     menu.DisplayGoalTypes();
-                    int GoleTypeChoice = int.Parse(Console.ReadLine());
-                    switch (GoleTypeChoice)
+                    switch (Console.ReadLine())
                     {
-                        case 1:
-                            menu.DesplayAndSaveSimpleGoal();
-                            break;
-                        case 2:
-                            Console.WriteLine("Creating an Eternal Goal...");
-                            // Here you would implement the logic to create an Eternal Goal
-                            break;
-                        case 3:
-                            Console.WriteLine("Creating a Checklist Goal...");
-                            // Here you would implement the logic to create a Checklist Goal
-                            break;
-                        case 4:
-                            Console.WriteLine("Returning to Main Menu...");
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice. Please select a valid goal type.");
-                            break;
+                        case "1": menu.DisplayAndSaveSimpleGoal(); break;
+                        case "2": menu.DisplayAndSaveEternalGoal(); break;
+                        case "3": menu.DisplayAndSaveChecklistGoal(); break;
                     }
                     break;
-                case 4:
-                    Console.Clear();
-                    Console.WriteLine("Marking goal as complete...");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
+                case "4":
+                    fileHandler.ListGoals();
+                    Console.Write("Goal number to record: ");
+                    fileHandler.RecordGoalEvent(int.Parse(Console.ReadLine()) - 1);
                     break;
-                case 5:
-                    Console.Clear();
-                    Console.WriteLine("Viewing goals...");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
+                case "5": fileHandler.SaveGoals(); break;
+                case "6":
+                    fileHandler.ListGoals();
+                    Console.Write("Enter the number of the goal to remove: ");
+                    if (int.TryParse(Console.ReadLine(), out int removeIndex))
+                    {
+                        fileHandler.RemoveGoal(removeIndex - 1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input.");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                    }
                     break;
-                case 6:
-                    menu.DisplayEndMessage();
-                    return;
-                default:
-                    Console.WriteLine("Invalid choice. Please select a valid option.");
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
+
+                case "7":
+                    exit = true;
                     break;
+
             }
         }
-
-        // SimpleGole goal = new SimpleGole("Run a Marathon", "Complete a full marathon", 1000);
-        // Console.WriteLine("Before completing:");
-        // Console.WriteLine(goal.ToString());
-        // int pointsEarned = goal.RecordPoints();
-        // Console.WriteLine("\nAfter completing:");
-        // Console.WriteLine(goal.ToString());
-        // Console.WriteLine($"\nPoints earned: {pointsEarned}");
-        // int extraPoints = goal.RecordPoints();
-        // Console.WriteLine($"\nTrying to complete again...");
-        // Console.WriteLine($"Extra points earned: {extraPoints}");
     }
 }

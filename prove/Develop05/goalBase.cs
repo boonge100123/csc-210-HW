@@ -6,8 +6,6 @@ abstract class Goal
     protected bool _IsComplete;
     protected string _name;
     protected string _description;
-    protected List<Goal> Goals = new List<Goal>();
-    protected string _filePath;
 
     public Goal(string name, string description, int points)
     {
@@ -21,27 +19,32 @@ abstract class Goal
 
     public virtual string GetStatus()
     {
-        return _IsComplete ? "Complete" : "Incomplete";
+        return _IsComplete ? "[X]" : "[ ]";
     }
 
     public override string ToString()
     {
-        return $"Name: {_name}, Description: {_description}, Points: {_points}, Status: {GetStatus()}";
+        return $"{GetStatus()} Name: {_name}, Description: {_description}, Points: {_points}";
     }
 
-    public void AddGoal(Goal goal)
+    public virtual string ToCSV()
     {
-        Goals.Add(goal);
+        return $"{this.GetType().Name},{_name},{_description},{_points},{_IsComplete}";
     }
 
-    public virtual void SaveGoals()
+    public static Goal FromCSV(string csvLine)
     {
-        using (StreamWriter writer = new StreamWriter(_filePath))
+        string[] parts = csvLine.Split(',');
+        if (parts.Length < 5) return null;
+
+        string type = parts[0];
+
+        return type switch
         {
-            foreach (Goal goal in Goals)
-            {
-                writer.WriteLine($"{goal.GetType().Name},{goal.ToString()}");
-            }
-        }
+            "SimpleGoal" => new SimpleGoal(parts[1], parts[2], int.Parse(parts[3])) { _IsComplete = bool.Parse(parts[4]) },
+            "EternalGoal" => new EternalGoal(parts[1], parts[2], int.Parse(parts[3])),
+            "ChecklistGoal" => ChecklistGoal.FromCSV(parts),
+            _ => null,
+        };
     }
 }
