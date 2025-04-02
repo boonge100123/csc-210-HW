@@ -1,9 +1,9 @@
-using System;
-
+// Program.cs
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        Console.WriteLine("Hello FinalProject World!");
+        var ui = new UserInterface();
+        ui.Run();
     }
 }
