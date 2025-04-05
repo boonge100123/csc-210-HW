@@ -8,7 +8,7 @@ public class GoalTracker
     public void DisplayGoals()
     {
         foreach (var goal in goals)
-            Console.WriteLine($"Goal: {goal.Type} | {goal.Progress} (x{goal.Modifier})/{goal.Target} | Completed: {goal.Evaluate()}");
+            Console.WriteLine($"Goal: {goal.Type} - {goal.Unit} - {goal.GetProgressReport()} | Completed: {goal.Evaluate()}");
     }
 
     // 🔽 NEW METHODS 🔽
@@ -17,5 +17,11 @@ public class GoalTracker
     public void LoadGoals(List<Goal> loadedGoals)
     {
         goals = loadedGoals ?? new List<Goal>();
+    }
+
+    public void RemoveGoalAt(int index)
+    {
+        if (index >= 0 && index < goals.Count)
+            goals.RemoveAt(index);
     }
 }

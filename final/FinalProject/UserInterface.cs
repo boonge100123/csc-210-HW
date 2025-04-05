@@ -79,13 +79,22 @@ public class UserInterface
         while (!back)
         {
             Console.Clear();
-            Console.WriteLine("\n-- Goal Tracker --\n1. Add Goal\n2. Show Goals\n3. Back");
+            Console.WriteLine("\n-- Goal Tracker --");
+            Console.WriteLine("1. Add Goal");
+            Console.WriteLine("2. Show Goals");
+            Console.WriteLine("3. Update Progress");
+            Console.WriteLine("4. Edit Goal");
+            Console.WriteLine("5. Delete Goal");
+            Console.WriteLine("6. Back");
             Console.Write("Choose option: ");
             switch (Console.ReadLine())
             {
                 case "1": Console.Clear(); AddGoal(); break;
                 case "2": Console.Clear(); goalTracker.DisplayGoals(); Pause(); break;
-                case "3": back = true; break;
+                case "3": Console.Clear(); UpdateGoalProgress(); break;
+                case "4": Console.Clear(); EditGoal(); break;
+                case "5": Console.Clear(); DeleteGoal(); break;
+                case "6": back = true; break;
             }
         }
     }
@@ -309,21 +318,161 @@ public class UserInterface
 
     private void AddGoal()
     {
-        Console.Write("Goal Type (Daily/Weekly): ");
-        string type = Console.ReadLine();
+        Console.WriteLine("-- Add a Goal --");
+
+        Console.WriteLine("Choose Goal Frequency:");
+        Console.WriteLine("1. Daily");
+        Console.WriteLine("2. Weekly");
+        Console.WriteLine("3. Monthly");
+        Console.WriteLine("4. Yearly");
+        Console.Write("Enter number (1–4): ");
+        string type = Console.ReadLine() switch
+        {
+            "1" => "Daily",
+            "2" => "Weekly",
+            "3" => "Monthly",
+            "4" => "Yearly",
+            _ => "Daily" // fallback default
+        };
+
+        Console.WriteLine("Choose Unit:");
+        Console.WriteLine("1. Pages");
+        Console.WriteLine("2. Chapters");
+        Console.WriteLine("3. Books");
+        Console.Write("Enter number (1–3): ");
+        string unit = Console.ReadLine() switch
+        {
+            "1" => "Pages",
+            "2" => "Chapters",
+            "3" => "Books",
+            _ => "Pages"
+        };
 
         Console.Write("Target Amount: ");
         int target = int.Parse(Console.ReadLine());
 
-        Console.Write("Modifier (e.g. 1.0 = normal, 0.5 = half credit): ");
-        double modifier = double.Parse(Console.ReadLine());
+        var goal = new Goal
+        {
+            Type = type,
+            Unit = unit,
+            Target = target,
+            Progress = 0
+        };
 
-        var goal = new Goal { Type = type, Target = target, Progress = 0, Modifier = modifier };
         goalTracker.AddGoal(goal);
-        jsonService.SaveData(goalTracker.GetAllGoals(), goalsFile);
-        Console.WriteLine("Goal added and saved!");
+        jsonService.SaveData(goalTracker.GetAllGoals(), "goals.json");
+
+        Console.WriteLine("Goal created and saved!");
         Pause();
     }
+
+
+    private void UpdateGoalProgress()
+    {
+        var goals = goalTracker.GetAllGoals();
+        if (goals.Count == 0)
+        {
+            Console.WriteLine("No goals found.");
+            Pause();
+            return;
+        }
+
+        for (int i = 0; i < goals.Count; i++)
+            Console.WriteLine($"{i + 1}. {goals[i].Type} Goal - {goals[i].Unit} - {goals[i].GetProgressReport()}");
+
+        Console.Write("Enter goal number to update: ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= goals.Count)
+        {
+            var goal = goals[choice - 1];
+            Console.Write($"Enter amount of {goal.Unit} to add to progress: ");
+            if (int.TryParse(Console.ReadLine(), out int amount))
+            {
+                goal.UpdateProgress(amount);
+                jsonService.SaveData(goalTracker.GetAllGoals(), "goals.json");
+                Console.WriteLine("Progress updated!");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid choice.");
+        }
+
+        Pause();
+    }
+
+    private void EditGoal()
+    {
+        var goals = goalTracker.GetAllGoals();
+        if (goals.Count == 0)
+        {
+            Console.WriteLine("No goals found.");
+            Pause();
+            return;
+        }
+
+        for (int i = 0; i < goals.Count; i++)
+            Console.WriteLine($"{i + 1}. {goals[i].Type} Goal - {goals[i].Unit} - {goals[i].GetProgressReport()}");
+
+        Console.Write("Enter goal number to edit: ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= goals.Count)
+        {
+            var goal = goals[choice - 1];
+
+            Console.Write($"New Goal Type (current: {goal.Type}) or Enter to keep: ");
+            string newType = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newType)) goal.Type = newType;
+
+            Console.Write($"New Unit (current: {goal.Unit}) or Enter to keep: ");
+            string newUnit = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newUnit)) goal.Unit = newUnit;
+
+            Console.Write($"New Target (current: {goal.Target}) or Enter to keep: ");
+            string newTarget = Console.ReadLine();
+            if (int.TryParse(newTarget, out int parsedTarget)) goal.Target = parsedTarget;
+
+            jsonService.SaveData(goalTracker.GetAllGoals(), "goals.json");
+            Console.WriteLine("Goal updated.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid selection.");
+        }
+
+        Pause();
+    }
+
+    private void DeleteGoal()
+    {
+        var goals = goalTracker.GetAllGoals();
+        if (goals.Count == 0)
+        {
+            Console.WriteLine("No goals to delete.");
+            Pause();
+            return;
+        }
+
+        for (int i = 0; i < goals.Count; i++)
+            Console.WriteLine($"{i + 1}. {goals[i].Type} Goal - {goals[i].Unit} - {goals[i].GetProgressReport()}");
+
+        Console.Write("Enter goal number to delete: ");
+        if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= goals.Count)
+        {
+            goalTracker.RemoveGoalAt(choice - 1);
+            jsonService.SaveData(goalTracker.GetAllGoals(), "goals.json");
+            Console.WriteLine("Goal deleted.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid choice.");
+        }
+
+        Pause();
+    }
+
 
     private void Pause()
     {
