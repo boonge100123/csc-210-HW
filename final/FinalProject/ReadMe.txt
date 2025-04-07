@@ -1,20 +1,78 @@
-This is a program that has three main capabilities. 
+# Reading Tracker Console App
 
-The first capability is it will allow you to create a personal library of books. The intention of it was it would be a way to keep 
-track of your books, keep track of how muchthe cost of your entire library is, and keep track of the amounts of books that you have. 
+This is a program that has three main capabilities.
 
-The second capability of this program is it will let you sit goals for how much you want to read or listen to a book. When entering 
-this part of it, it's going to first ask you what type of goal you want, whether you want it to be a daily goal, a weekly goal, a 
-monthly goal or a yearly goal. It's then going to ask you whether you want to keep track of the goal in pages, chapters or books
-This will allow the user to create a goal that for example, a daily goal where I want to read 100 pages today. Another example Might 
-be I want to read ten books this year
+---
 
-The third functionality is A wish list managerThis works almost identically to the personal library manager.but instead of books that 
-you own, you can put books that you would like to own and their cost. It also lets you transfer books straight from the wish list to 
-your library if they are purchased. 
+## 1. Personal Library Manager
 
+The first capability is that it will allow you to create a personal library of books. The intention was to give users a way to:
 
+- Keep track of the books they own
+- See the total cost of their collection
+- View how many books they have
 
-The program works With Json files and because of this it made it so a lot of my abstractions had to be set to public because json files 
-can only interact with public varibles. I did use private and protected varibles As often as I could in accordance to the rubric.
+---
 
+## 2. Reading Goal Tracker
+
+The second capability lets you set reading or listening goals.
+
+When creating a goal, you will be asked:
+
+1. What type of goal you want:
+   - Daily
+   - Weekly
+   - Monthly
+   - Yearly
+
+2. What unit you want to track:
+   - Pages
+   - Chapters
+   - Books
+   - Hours
+
+You’ll then enter a target amount, like:
+- “I want to read 100 pages today.”
+- “I want to finish 10 books this year.”
+
+Goals can be updated later, and the system will show percentage progress (e.g., 10/20 pages = 50%).
+
+---
+
+## 3. Wishlist Manager
+
+The third functionality is a wishlist manager. This works similarly to the personal library manager, but instead of books you own, it tracks books you would like to buy and their prices.
+
+You can also transfer a book from your wishlist directly into your library once it’s been purchased.
+
+---
+
+## Data Persistence
+
+The program uses JSON files to save and load data. Because of this, some fields are marked `public` so that the JSON serializer can access them. That said, private and protected fields are still used where appropriate to meet encapsulation requirements.
+
+Files used:
+- `personal_library.json` – stores books in your library
+- `wishlist.json` – stores books in your wishlist
+- `goals.json` – stores reading goals
+
+All data is saved and loaded automatically. You don’t have to manage the files manually unless you want to back them up or reset them.
+
+---
+
+## How to Use
+
+- This is a console-based C# program.
+- When you run it, you'll see a main menu with numbered options.
+- Type the number and press Enter to choose an option.
+- Submenus will walk you through each action (like adding a book or creating a goal).
+
+---
+
+## Notes
+
+- I’ve included basic error handling for invalid input, but if you run into bugs or crashes, feel free to report them.
+- The program structure was designed with object-oriented principles like encapsulation and abstraction in mind, while also being JSON-compatible.
+
+---
