@@ -339,12 +339,14 @@ public class UserInterface
         Console.WriteLine("1. Pages");
         Console.WriteLine("2. Chapters");
         Console.WriteLine("3. Books");
-        Console.Write("Enter number (1–3): ");
+        Console.WriteLine("4. Hours");
+        Console.Write("Enter number (1–4): ");
         string unit = Console.ReadLine() switch
         {
             "1" => "Pages",
             "2" => "Chapters",
             "3" => "Books",
+            "4" => "Hours",
             _ => "Pages"
         };
 
@@ -413,27 +415,53 @@ public class UserInterface
             Pause();
             return;
         }
-
+    
         for (int i = 0; i < goals.Count; i++)
             Console.WriteLine($"{i + 1}. {goals[i].Type} Goal - {goals[i].Unit} - {goals[i].GetProgressReport()}");
-
+    
         Console.Write("Enter goal number to edit: ");
         if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= goals.Count)
         {
             var goal = goals[choice - 1];
-
-            Console.Write($"New Goal Type (current: {goal.Type}) or Enter to keep: ");
-            string newType = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(newType)) goal.Type = newType;
-
-            Console.Write($"New Unit (current: {goal.Unit}) or Enter to keep: ");
-            string newUnit = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(newUnit)) goal.Unit = newUnit;
-
+    
+            Console.WriteLine($"\nCurrent Type: {goal.Type}");
+            Console.WriteLine("Choose new Goal Frequency or press Enter to keep current:");
+            Console.WriteLine("1. Daily");
+            Console.WriteLine("2. Weekly");
+            Console.WriteLine("3. Monthly");
+            Console.WriteLine("4. Yearly");
+            Console.Write("Enter number (or just Enter to skip): ");
+            string typeInput = Console.ReadLine();
+            goal.Type = typeInput switch
+            {
+                "1" => "Daily",
+                "2" => "Weekly",
+                "3" => "Monthly",
+                "4" => "Yearly",
+                _ => goal.Type
+            };
+    
+            Console.WriteLine($"\nCurrent Unit: {goal.Unit}");
+            Console.WriteLine("Choose new Unit or press Enter to keep current:");
+            Console.WriteLine("1. Pages");
+            Console.WriteLine("2. Chapters");
+            Console.WriteLine("3. Books");
+            Console.WriteLine("4. Hours");
+            Console.Write("Enter number (or just Enter to skip): ");
+            string unitInput = Console.ReadLine();
+            goal.Unit = unitInput switch
+            {
+                "1" => "Pages",
+                "2" => "Chapters",
+                "3" => "Books",
+                "4" => "Hours",
+                _ => goal.Unit
+            };
+    
             Console.Write($"New Target (current: {goal.Target}) or Enter to keep: ");
             string newTarget = Console.ReadLine();
             if (int.TryParse(newTarget, out int parsedTarget)) goal.Target = parsedTarget;
-
+    
             jsonService.SaveData(goalTracker.GetAllGoals(), "goals.json");
             Console.WriteLine("Goal updated.");
         }
@@ -441,9 +469,10 @@ public class UserInterface
         {
             Console.WriteLine("Invalid selection.");
         }
-
+    
         Pause();
     }
+
 
     private void DeleteGoal()
     {
